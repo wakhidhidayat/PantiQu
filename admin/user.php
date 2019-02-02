@@ -1,24 +1,17 @@
-<?php
-session_start();
-require_once 'navbar.php';
-if(!isset($_SESSION['admin'])) {
-  echo"<script>location: login.php</script>;";
-  header("location: login.php");
-  exit();
-}
-?>
+<h2>Daftar User</h2> <br>
     <!-- Main component for a primary marketing message or call to action -->
       <table class="table">
         <tr>
           <td>No</td>
-          <td>Id User</td>
           <td>Nama</td>
           <td>Username</td>
           <td>Password</td>
           <td>Email</td>
           <td>No HP</td>
           <td>No Rekening</td>
-          <td>Aksi</td>
+          <td colspan='2'><center>Aksi</center></td>
+          
+          
         </tr>
       
       <?php
@@ -32,15 +25,14 @@ if(!isset($_SESSION['admin'])) {
       ?>
         <tr>
             <td><?php echo $no++; ?></td>
-            <td><?php echo $pecah['id_pemilik']; ?></td>
-            <td><?php echo $pecah['nama_pemilik']?></td>
-            <td><?php echo $pecah['username']; ?></td>
-            <td><?php echo $pecah['password'] ?></td>
-            <td><?php echo $pecah['email']?></td>
+            <td><?php echo $pecah['nama_pemilik']; ?></td>
+            <td><?php echo $pecah['username']?></td>
+            <td><?php echo $pecah['password']; ?></td>
+            <td><?php echo $pecah['email'] ?></td>
             <td><?php echo $pecah['no_hp']?></td>
             <td><?php echo $pecah['no_rekening']?></td>
-            <td><a href='edit-user.php?id=<?php echo $pecah['id_pemilik']?>' class='btn btn-primary'>Edit</a>
-            <a href='user.php?del=<?php echo $pecah['id_pemilik']?>' class='btn btn-danger' onClick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</a></td>
+            <td><a href='index.php?page=edit-user&id=<?php echo $pecah['id_pemilik']?>' class='btn btn-primary'>Edit</a></td>
+            <td><a href='index.php?page=delete-user&id=<?php echo $pecah['id_pemilik']?>' class='btn btn-danger' onClick="return confirm('Anda yakin ingin menghapus data ini?')">Hapus</a></td>
             
         </tr>
     <?php
@@ -48,16 +40,7 @@ if(!isset($_SESSION['admin'])) {
     ?>
     </table>
 
-    <?php
-      if(isset($_GET['del'])) {
-        $id = $_GET['del'];
-        $delete = new CRUD();
-        $delete->destroy('pemilik_panti', $id, 'id_pemilik');
-        echo "<meta http-equiv='refresh' content='1;url=user.php'>";
-      }
-    ?>  
-    <a href='insert-user.php' class='btn btn-success' name='tambah'>Tambah Data</a>
+ 
+    <a href='index.php?page=insert-user' class='btn btn-success' name='tambah'>Tambah Data</a>
     
-<?php
-require_once 'footer.php';
-?>
+

@@ -1,17 +1,10 @@
 <?php
-session_start();
-require_once 'navbar.php';
-if(!isset($_SESSION['admin'])) {
-  echo"<script>location: login.php</script>;";
-  header("location: login.php");
-  exit();
-}
 function __autoload($class) {
   require_once "../$class.php";
 }
 $insert = new CRUD();
 ?>
-
+        <h2>Tambah Panti</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Nama Panti</label>
@@ -82,10 +75,8 @@ $insert = new CRUD();
 
                       $insert->insert('panti', $data);
 
-                      echo "<script> alert('Data berhasil ditambahkan'); </script>";
-                      echo "<script> location='index.php'; </script>";
+                      echo "<div class='alert alert-info'>Data Berhasil Ditambahkan</div>";
+                      echo "<meta http-equiv='refresh' content='1;url=index.php?page=panti'>";
                       
                     }
-
-                    require_once 'footer.php';
                   ?>

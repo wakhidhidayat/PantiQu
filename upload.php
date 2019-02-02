@@ -2,18 +2,16 @@
 require_once 'navbar.php';
 if(!isset($_SESSION['pemilik_panti'])) {
   echo"<script>alert('Anda Harus Login Dulu!');</script>";
-  echo"<script>location: login.php</script>;";
-  header("location: login.php");
+  echo"<script>location: login/login.php</script>;";
+  header("location: login/login.php");
   exit();
 }
 ?>
 <nav class="site-navigation d-flex justify-content-end align-items-center">
     <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
         <li ><a href="index.php">Beranda</a></li>
-        <li><a href="about.html">Tentang Kami</a></li>
-        <li><a href="list.php">Daftar Panti</a></li>
+        <li><a href="news.php">Panti</a></li>
         <li  class="current-menu-item"><a href="upload.php">Upload</a></li>
-        <li><a href="akun.php">Akun Saya</a></li>
         <li><a href="logout.php">Logout</a></li>
     </ul>
 </nav><!-- .site-navigation -->
@@ -56,7 +54,7 @@ $insert = new CRUD();
                     <textarea name="info" rows="10" class="form-control">Isikan gambaran kondisi panti beserta kondisi keuangannya</textarea>
                   </div>
                   <div class="form-group">
-                  <button name="tambah" class="btn btn-success">Kirim Data</button>
+                  <button name="tambah" class="btn gradient-bg">Kirim Data</button>
                   </div>
             </form>
             <?php
@@ -82,8 +80,8 @@ $insert = new CRUD();
 
                       $insert->insert('panti', $data);
 
-                      echo "<script> alert('Data berhasil ditambahkan'); </script>";
-                      echo "<script> location='index.php'; </script>";
+                      echo "<script> alert('Data berhasil ditambahkan, menunggu persetujuan Admin'); </script>";
+                      echo "<script> location='news.php'; </script>";
                       
                     }
                   ?>

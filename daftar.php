@@ -6,6 +6,15 @@ function __autoload($class) {
 $daftar = new CRUD();
 ?>
 
+<nav class="site-navigation d-flex justify-content-end align-items-center">
+    <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+        <li ><a href="index.php">Beranda</a></li>
+        <li><a href="news.php">Panti</a></li>
+        <li><a href="upload.php">Upload</a></li>
+        <li><a href="logout.php">Logout</a></li>
+    </ul>
+</nav><!-- .site-navigation -->
+
 <?php
 require_once ('navbar2.php');
 ?>
@@ -42,7 +51,7 @@ require_once ('navbar2.php');
                     <input type="number" name="no_rekening" class="form-control"/>
                   </div>
                   <div class="form-group">
-                  <button name="tambah" class="btn btn-success">Daftar</button>
+                  <button name="tambah" class="btn gradient-bg">Daftar</button>
                   </div>
             </form>
 
@@ -68,7 +77,7 @@ require_once ('navbar2.php');
         $daftar->insert('pemilik_panti', $data);
 
         echo "<script> alert('Berhasil Mendaftar'); </script>";
-        echo "<script> location='login.php'; </script>";
+        echo "<script> location='login/login.php'; </script>";
         
         }
 

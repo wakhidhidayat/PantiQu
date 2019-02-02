@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 session_start();
-require_once('../connect.php');
+require_once('connect.php');
 function __autoload($class) {
   require_once "../$class.php";
 }
@@ -8,73 +8,90 @@ function __autoload($class) {
 $login = new CRUD();
 ?>
 <!DOCTYPE html>
-<html lang="en">
-  
-<!-- Mirrored from getbootstrap.com/examples/signin/ by HTTrack Website Copier/3.x [XR&CO'2013], Fri, 01 Nov 2013 23:56:10 GMT -->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PantiQ - Admin</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
-    <title>Signin Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
+</head>
+<body>
     <div class="container">
+        <div class="row text-center ">
+            <div class="col-md-12">
+                <br /><br />
+                <h2>Login</h2>
+                 <br />
+            </div>
+        </div>
+         <div class="row ">
+               
+                  <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>   Enter Details To Login </strong>  
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" method="post">
+                                       <br />
+                                     <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                                            <input type="text" name="username" class="form-control" placeholder="Username" />
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                            <input type="password" name="password" class="form-control"  placeholder="Password" />
+                                        </div>
+                                    <div class="form-group">
+                                        </div>
+                                     
+                                     <button class="btn btn-primary" name="login">Login</button>
+                                    </form>
+                                    <?php
+                                    if(isset($_POST['login'])) {
+                                        $username = $_POST['username'];
+                                        $password = $_POST['password'];
+                                        $query = $conn->query("SELECT * FROM admin WHERE username='$username' AND password='$password'");
+                                        $cek = mysqli_num_rows($query);
+                                        if($cek > 0) {
+                                            $akun = $query->fetch_array();
+                                            $_SESSION['admin'] = $akun;
+                                            echo "<script>alert('Berhasil masuk');</script> ";
+                                            echo "<script> location='index.php?page=panti'; </script>";
+                                        }
+                                        else {
+                                            echo "<script>alert('Username Atau Password Salah!');</script> ";
+                                            echo "<script>location='login.php';</script>";
+                                        }
+                                      }
+                                    ?>
+                            </div>
+                           
+                        </div>
+                    </div>
+                
+                
+        </div>
+    </div>
 
-      <form class="form-signin" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Username" name="username" required autofocus >
-        <input type="password" class="form-control" placeholder="Password" name="password" required >
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Sign in</button>
-      </form>
-      <?php
-      if(isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $query = $conn->query("SELECT * FROM admin WHERE username='$username' AND password='$password'");
-        $cek = mysqli_num_rows($query);
-        if($cek > 0) {
-            $akun = $query->fetch_array();
-            $_SESSION['admin'] = $akun;
-            echo "<script>alert('Berhasil masuk');</script> ";
-        	echo "<script> location='index.php'; </script>";
-        }
-        else {
-            echo "<script>alert('Wrong username or password!');</script> ";
-            echo "<script>location='login.php';</script>";
-        }
-      }
-      ?>
-    </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-  </body>
-
-<!-- Mirrored from getbootstrap.com/examples/signin/ by HTTrack Website Copier/3.x [XR&CO'2013], Fri, 01 Nov 2013 23:56:11 GMT -->
+     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+   
+</body>
 </html>

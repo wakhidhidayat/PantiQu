@@ -1,11 +1,4 @@
 <?php
-session_start();
-require_once 'navbar.php';
-if(!isset($_SESSION['admin'])) {
-  echo"<script>location: login.php</script>;";
-  header("location: login.php");
-  exit();
-}
 function __autoload($class) {
   require_once "../$class.php";
 }
@@ -16,7 +9,7 @@ if(isset($_GET['id'])) {
     $result = $edit->selectOne('panti', $uid, 'id_panti');
 }
 ?>
-
+        <h2>Edit Panti</h2>
            <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id_panti" value="<?php echo $result['id_panti']?>">
                 <div class="form-group">
@@ -94,9 +87,7 @@ if(isset($_GET['id'])) {
                       }
 
                       echo "<script> alert('Data berhasil diubah'); </script>";
-                      echo "<script> location='index.php'; </script>";
+                      echo "<script> location='index.php?page=panti'; </script>";
                       
                     }
-
-                    require_once 'footer.php';
                   ?>

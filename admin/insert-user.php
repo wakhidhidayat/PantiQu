@@ -1,22 +1,14 @@
 <?php
-session_start();
-require_once 'navbar.php';
-if(!isset($_SESSION['admin'])) {
-  echo"<script>location: login.php</script>;";
-  header("location: login.php");
-  exit();
-}
 function __autoload($class) {
   require_once "../$class.php";
 }
 $insert = new CRUD();
 ?>
-
-      
-            <form method="post">
+        <h2>Tambah User</h2>
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Nama</label>
-                    <input type="text" name="nama_pemilik" class="form-control"/>
+                    <input type="text" name="nama" class="form-control"/>
                 </div>
                 <div class="form-group">
                   <label>Username</label>
@@ -35,9 +27,9 @@ $insert = new CRUD();
                     <input type="number" name="no_hp" class="form-control">
                   </div> 
                   <div class="form-group">
-                    <label>No Rekening</label>
+                    <label>No Rekening (Opsional)</label>
                     <input type="number" name="no_rekening" class="form-control">
-                  </div>
+                  </div> 
                   <div class="form-group">
                   <button name="tambah" class="btn btn-success">Kirim Data</button>
                   </div>
@@ -45,29 +37,26 @@ $insert = new CRUD();
             <?php
 
                     if(isset($_POST['tambah'])) {
-                      $namaPemilik = $_POST['nama_pemilik'];
+                      $nama = $_POST['nama'];
                       $username = $_POST['username'];
                       $password = $_POST['password'];
                       $email = $_POST['email'];
-                      $noHp = $_POST['no_hp'];
-                      $noRekening = $_POST['no_rekening'];
+                      $no_hp = $_POST['no_hp'];
+                      $no_rekening = $_POST['no_rekening'];
 
                       $data = [
-                        'nama_pemilik' => $namaPemilik,
+                        'nama_pemilik' => $nama,
                         'username' => $username,
                         'password' => $password,
                         'email' => $email,
-                        'no_hp' => $noHp,
-                        'no_rekening' => $noRekening
+                        'no_hp' => $no_hp,
+                        'no_rekening' => $no_rekening
                       ];
 
-                     $simpan = $insert->insert('pemilik_panti', $data);
-                        
-                            echo "<script> alert('Data berhasil ditambahkan'); </script>";
-                            echo "<script> location='user.php'; </script>";
-                        
+                      $insert->insert('pemilik_panti', $data);
+
+                      echo "<div class='alert alert-info'>Data Berhasil Ditambahkan</div>";
+                      echo "<meta http-equiv='refresh' content='1;url=index.php?page=user'>";
                       
                     }
-
-                    require_once 'footer.php';
                   ?>
